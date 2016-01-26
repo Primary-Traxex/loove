@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+
+    <head>
+        <title>Love</title>
+        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
+        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
+    </head>
+
+    <body>
+        <h1>Loove网站</h1>
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <li><a href="/love/category/{{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+        <img src="{% static "images/love.jpg" %}" alt="Picture of love" /> <!-- Images -->
+            <h2> Love says: Hello world! </h2>
+                <br/> <a href='/love/about'>About</a>
+        <br/> <a href="/love/add_category/">Add a New Category</a><br />
+    </body>
+
+</html>
