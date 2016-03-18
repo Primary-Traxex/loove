@@ -2,6 +2,7 @@ from django.shortcuts import render
 from love.models import Category
 from love.models import Page
 from love.forms import CategoryForm
+from love.forms import PageForm
 from django.http import HttpResponse
 
 
@@ -27,7 +28,6 @@ def category(request, category_name_slug):
         # So the .get() method returns one model instance or raises an exception.
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category_name'] = category.name
-
         # Retrieve all of the associated pages.
         # Note that filter returns >= 1 model instance.
         pages = Page.objects.filter(category=category)
@@ -37,6 +37,7 @@ def category(request, category_name_slug):
         # We also add the category object from the database to the context dictionary.
         # We'll use this in the template to verify that the category exists.
         context_dict['category'] = category
+        context_dict['category_name_slug'] = category_name_slug
     except Category.DoesNotExist:
         pass
 
@@ -67,3 +68,30 @@ def add_category(request):
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     return render(request, 'love/add_category.html', {'form': form})
+
+
+def add_page(request, category_name_slug):
+
+    try:
+        cat = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+                cat = None
+
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if cat:
+                page = form.save(commit=False)
+                page.category = cat
+                page.views = 0
+                page.save()
+                # probably better to use a redirect here.
+                return category(request, category_name_slug)
+        else:
+            print form.errors
+    else:
+        form = PageForm()
+
+    context_dict = {'form': form, 'category': cat, 'category_name_slug': category_name_slug}
+
+    return render(request, 'love/add_page.html', context_dict)
