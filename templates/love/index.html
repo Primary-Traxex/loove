@@ -1,29 +1,35 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'base.html' %}
 
-<html>
+{% load staticfiles %}
 
-    <head>
-        <title>Love</title>
-        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
-        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
-    </head>
+{% block title %}Loove{% endblock %}
 
-    <body>
-        <h1>Loove网站</h1>
+{% block body_block %}
+        {% if user.is_authenticated %}
+        <h1>LOOVE网欢迎你:{{ user.username }}!</h1>
+        {% else %}
+        <h1>LOVE says... hello world!</h1>
+        {% endif %}
         {% if categories %}
             <ul>
                 {% for category in categories %}
-                <li><a href="/love/category/{{ category.slug }}">{{ category.name }}</a></li>
+                <li><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
-        <img src="{% static "images/love.jpg" %}" alt="Picture of love" /> <!-- Images -->
-            <h2> Love says: Hello world! </h2>
-                <br/> <a href='/love/about'>About</a>
-        <br/> <a href="/love/add_category/">Add a New Category</a><br />
-    </body>
 
-</html>
+        {% if pages %}
+        <ul >
+            {% for page in pages %}
+             <li ><a href="{{page.url}}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+        <p> visits: {{ visits }}</p>
+        <!-- <img src="{% static "images/love.jpg" %}" alt="Picture of love" /> --> <!-- Images -->
+
+{% endblock %}

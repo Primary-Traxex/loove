@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'base.html' %}
 
-<html>
-    <head>
-        <title>About Love</title>
-        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
-        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
-    </head>
+{% load staticfiles %}
 
-    <body>
+{% block title %}About Loove{% endblock %}
+
+{% block body_block %}
         <h1>这是我的第一个网站</h1>
         <img src="{% static "images/love.jpg" %}" alt="Picture of love" /> <!-- Images -->
         <br />
-        <a href="/love/">Index</a>
-    </body>
-
-</html>
+{% endblock %}
