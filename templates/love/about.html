@@ -2,10 +2,17 @@
 
 {% load staticfiles %}
 
-{% block title %}About Loove{% endblock %}
+{% block title %}About{% endblock %}
 
 {% block body_block %}
-        <h1>这是我的第一个网站</h1>
-        <img src="{% static "images/love.jpg" %}" alt="Picture of love" /> <!-- Images -->
-        <br />
+    <div class="page-header">
+                <h1>关于Love</h1>
+            </div>
+            <div>
+            <p>欢迎访问Love！</p>
+            <p>点击这里返回<a href="{% url 'index' %}">首页</a>。</p>
+            <p>这是一张Love的图片！</p>
+
+            <img  width="600" src="{% static "images/love.jpg" %}" alt="Love" />
+            </div>
 {% endblock %}

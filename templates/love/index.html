@@ -6,24 +6,34 @@
 
 {% block body_block %}
         {% if user.is_authenticated %}
+        <div class="page-header">
         <h1>LOOVE网欢迎你:{{ user.username }}!</h1>
         {% else %}
         <h1>LOVE says... hello world!</h1>
         {% endif %}
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+               <h3 class="panel-title">分类</h3>
+       </div>
         {% if categories %}
-            <ul>
+            <ul class="list-group">
                 {% for category in categories %}
-                <li><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
+                <li class="list-group-item"><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
-
+        </div>
+            <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">页面</h3>
+        </div>
         {% if pages %}
-        <ul >
+        <ul class="list-group">
             {% for page in pages %}
-             <li ><a href="{{page.url}}">{{ page.title }}</a></li>
+             <li class="list-group-item"><a href="{{page.url}}">{{ page.title }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
