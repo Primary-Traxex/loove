@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 from django.conf import settings
+from love import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^love/', include('love.urls')),
+    url(r'^$', views.primary, name='primary'),
     # url(r'^accounts/', include('registration.backends.simple.urls')),
 ]
 
